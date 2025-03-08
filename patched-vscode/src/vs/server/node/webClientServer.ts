@@ -102,6 +102,7 @@ export class WebClientServer {
 	private readonly _callbackRoute: string;
 	private readonly _webExtensionRoute: string;
 	private readonly _idleRoute: string;
+	private readonly _hello: string;
 
 	constructor(
 		private readonly _connectionToken: ServerConnectionToken,
@@ -118,6 +119,7 @@ export class WebClientServer {
 		this._callbackRoute = `${serverRootPath}/callback`;
 		this._webExtensionRoute = `${serverRootPath}/web-extension-resource`;
 		this._idleRoute = '/api/idle';
+		this._hello= '/api/hello';
 	}
 
 	/**
@@ -137,6 +139,9 @@ export class WebClientServer {
 			}
 			if (pathname === this._idleRoute) {
 				return this._handleIdle(req, res);
+			}
+			if (pathname === this._hello) {
+				return this._handleHello(req, res);
 			}
 			if (pathname === this._callbackRoute) {
 				// callback support
@@ -473,6 +478,12 @@ export class WebClientServer {
 		} catch (error) {
 			serveError(req, res, 500, error.message)
 		}
+	}
+
+	private async _handleHello(req: http.IncomingMessage, res: http.ServerResponse): Promise<void> {
+		res.statusCode = 200;
+		res.setHeader('Content-Type', 'application/json');
+		res.end(JSON.stringify({ 'msg': 'hello' }));
 	}
 }
 
