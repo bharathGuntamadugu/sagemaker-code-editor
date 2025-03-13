@@ -9,3 +9,5 @@ license.diff
 sagemaker-idle-extension.patch
 terminal-crash-mitigation.patch
 sagemaker-open-notebook-extension.patch
+sagemaker-ui-env-metadata.patch
+sagemaker-ui-domain-role.patch
